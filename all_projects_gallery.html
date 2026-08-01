@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Projects | Babulal Vaishnav</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Clash+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Clash Display', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            dark: '#050505',
+                            light: '#ffffff',
+                            accent: '#4ade80', // vibrant green
+                            accent2: '#a855f7', // purple
+                            surface: '#111111',
+                            surfaceHover: '#1a1a1a',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: #050505;
+            color: #ffffff;
+            overflow-x: hidden;
+           
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #050505; }
+        ::-webkit-scrollbar-thumb { background: #333; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #555; }
+
+        h1, h2, h3, .font-display { font-family: 'Clash Display', sans-serif; }
+        
+        .glass-card {
+            background: rgba(17, 17, 17, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .glass-card:hover {
+            border-color: rgba(255, 255, 255, 0.15);
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.5);
+        }
+
+        .media-container { overflow: hidden; position: relative; }
+        .media-container img, .media-container video {
+            transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        .group:hover .media-container img { transform: scale(1.05); }
+
+        /* Video Play Icon Overlay */
+        .video-indicator {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 50px;
+            height: 50px;
+            background: rgba(0,0,0,0.6);
+            backdrop-filter: blur(4px);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+            pointer-events: none;
+            transition: transform 0.3s, background 0.3s;
+        }
+        .group:hover .video-indicator {
+            transform: translate(-50%, -50%) scale(1.1);
+            background: rgba(74, 222, 128, 0.8);
+            color: black;
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <nav class="fixed top-0 w-full z-40 bg-brand-dark/90 backdrop-blur-md border-b border-white/5 py-4">
+        <div class="max-w-7xl mx-auto px-6 md:px-12 flex justify-between items-center">
+            <a href="index.html" class="flex items-center gap-3 text-gray-400 hover:text-white transition-colors group font-medium">
+                <div class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center group-hover:bg-brand-accent group-hover:text-black transition-colors">
+                    <i class="fa-solid fa-arrow-left"></i>
+                </div>
+                Back to Portfolio
+            </a>
+            
+            <a href="index.html" class="font-display font-bold text-xl tracking-wide flex items-center gap-2">
+                <div class="w-8 h-8 rounded-full bg-gradient-to-tr from-brand-accent to-brand-accent2 flex items-center justify-center text-black">B</div>
+                Vaishnav.
+            </a>
+        </div>
+    </nav>
+
+    <main class="pt-32 pb-24 min-h-screen">
+        <div class="max-w-7xl mx-auto px-6 md:px-12">
+            
+            <div class="mb-12">
+                <h1 class="text-4xl md:text-6xl font-display font-bold mb-6">Complete Archive</h1>
+                <p class="text-gray-400 text-lg max-w-2xl">A comprehensive collection of my 3D props, architectural renders, game mechanics, and interface designs.</p>
+            </div>
+
+            <div class="flex flex-wrap gap-3 mb-12 border-b border-white/10 pb-6">
+                <button data-filter="all" class="filter-btn px-5 py-2 rounded-full bg-white text-black font-medium text-sm transition">All Work</button>
+                <button data-filter="3d" class="filter-btn px-5 py-2 rounded-full border border-white/10 text-gray-400 text-sm hover:text-white hover:border-white/30 transition">3D Props</button>
+                <button data-filter="video" class="filter-btn px-5 py-2 rounded-full border border-white/10 text-gray-400 text-sm hover:text-white hover:border-white/30 transition">Renders & Videos</button>
+                <button data-filter="game" class="filter-btn px-5 py-2 rounded-full border border-white/10 text-gray-400 text-sm hover:text-white hover:border-white/30 transition">Game Design</button>
+                <button data-filter="uiux" class="filter-btn px-5 py-2 rounded-full border border-white/10 text-gray-400 text-sm hover:text-white hover:border-white/30 transition">UI/UX</button>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+                <!-- Item 1: 3D Prop (Image) -->
+                <div class="gallery-item glass-card rounded-2xl p-2 group cursor-pointer flex flex-col h-[400px]" data-category="3d">
+                    <div class="media-container w-full flex-1 rounded-xl bg-[#1a1a1a]">
+                        <img src="ravanhatta_Main Camera_FullQuality.png" alt="Traditional Folk Instrument" class="w-full h-full object-cover opacity-80">
+                    </div>
+                    <div class="p-5">
+                        <div class="flex gap-2 mb-2">
+                            <span class="text-[10px] font-bold uppercase tracking-wider px-2 py-1 rounded bg-white/5 text-gray-300">3D Prop</span>
+                            <span class="text-[10px] font-bold uppercase tracking-wider px-2 py-1 rounded bg-brand-accent/10 text-brand-accent">Maya / Substance</span>
+                        </div>
+                        <h3 class="text-xl font-bold font-display mb-1 text-white">Traditional Folk Instrument</h3>
+                        <p class="text-gray-500 text-sm line-clamp-2">Realistic 3D model of a stringed musical instrument RAvanahatha with detailed wood and skin textures.</p>
+                    </div>
+                </div>
+
+                
+
+                <!-- Item 3: UI/UX (Image) -->
+                <div class="gallery-item glass-card rounded-2xl p-2 group cursor-pointer flex flex-col h-[400px]" data-category="uiux">
+                    <div class="media-container w-full flex-1 rounded-xl bg-[#0a0a0a]">
+                        <img src="Slide 16_9 - 75.png" alt="Dashboard UI" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-5">
+                        <div class="flex gap-2 mb-2">
+                            <span class="text-[10px] font-bold uppercase tracking-wider px-2 py-1 rounded bg-white/5 text-gray-300">UI/UX</span>
+                            <span class="text-[10px] font-bold uppercase tracking-wider px-2 py-1 rounded bg-purple-500/10 text-purple-400">Figma</span>
+                        </div>
+                        <h3 class="text-xl font-bold font-display mb-1 text-white">AgenticAPY Dashboard</h3>
+                        <p class="text-gray-500 text-sm line-clamp-2">Organized complex data sets into accessible, clean dashboard views maximizing productivity.</p>
+                    </div>
+                </div>
+
+                <!-- Item 4: 2D Game (Image) -->
+                <div class="gallery-item glass-card rounded-2xl p-2 group cursor-pointer flex flex-col h-[400px]" data-category="game">
+                    <div class="media-container w-full flex-1 rounded-xl bg-[#2a1c1c] flex items-center justify-center overflow-hidden relative">
+                         <!-- Decorative background for mobile mockup style -->
+                         <div class="absolute inset-0 opacity-30 bg-[url('https://images.unsplash.com/photo-1550745165-9bc0b252726f?q=80&w=800')] bg-cover blur-sm"></div>
+                         <img src="post.png" alt="Mobile Game Mockup" class="h-[90%] w-auto object-contain relative z-10 shadow-2xl rounded-lg transform group-hover:scale-105 transition-transform">
+                    </div>
+                    <div class="p-5">
+                        <div class="flex gap-2 mb-2">
+                            <span class="text-[10px] font-bold uppercase tracking-wider px-2 py-1 rounded bg-white/5 text-gray-300">2D Mobile Game</span>
+                            <span class="text-[10px] font-bold uppercase tracking-wider px-2 py-1 rounded bg-yellow-500/10 text-yellow-400">Unity</span>
+                        </div>
+                        <h3 class="text-xl font-bold font-display mb-1 text-white">Chidiya Ud</h3>
+                        <p class="text-gray-500 text-sm line-clamp-2">Upcoming release. Focuses on intuitive mechanics and clean level design for mobile platforms.</p>
+                    </div>
+                </div>
+
+              <!--   Item 5: 3D Game Mechanics Video (Using HTML5 Video tag)
+                <div class="gallery-item glass-card rounded-2xl p-2 group cursor-pointer flex flex-col h-[400px]" data-category="game">
+                    <div class="media-container w-full flex-1 rounded-xl bg-black">
+                        <video class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity" autoplay loop muted playsinline poster="https://images.unsplash.com/photo-1542751371-adc38448a05e?q=80&w=800&auto=format&fit=crop">
+                             <!-- Replace src with your actual gameplay video -->
+                           <!--  <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
+                        </video>
+                        <div class="video-indicator"><i class="fa-solid fa-gamepad"></i></div>
+                    </div>
+                   <!--  <div class="p-5">
+                        <div class="flex gap-2 mb-2">
+                            <span class="text-[10px] font-bold uppercase tracking-wider px-2 py-1 rounded bg-white/5 text-gray-300">Gameplay Reel</span>
+                            <span class="text-[10px] font-bold uppercase tracking-wider px-2 py-1 rounded bg-red-500/10 text-red-400">C# Scripts</span>
+                        </div>
+                        <h3 class="text-xl font-bold font-display mb-1 text-white">Aerial Combat AI Test</h3>
+                        <p class="text-gray-500 text-sm line-clamp-2">Showcasing complex flying mechanics and vertical pacing engineered for enemy AI.</p>
+                    </div>
+                </div> -->
+
+                <!-- Item 6: Interior Render (Image) -->
+               <!-- <div class="gallery-item glass-card rounded-2xl p-2 group cursor-pointer flex flex-col h-[400px]" data-category="3d">
+                    <div class="media-container w-full flex-1 rounded-xl bg-[#1a1a1a]">
+                        <img src="https://images.unsplash.com/photo-1598928506311-c55ded91a20c?q=80&w=800&auto=format&fit=crop" alt="Bedroom Render" class="w-full h-full object-cover opacity-90">
+                    </div>
+                    <div class="p-5">
+                        <div class="flex gap-2 mb-2">
+                            <span class="text-[10px] font-bold uppercase tracking-wider px-2 py-1 rounded bg-white/5 text-gray-300">Architecture</span>
+                            <span class="text-[10px] font-bold uppercase tracking-wider px-2 py-1 rounded bg-orange-500/10 text-orange-400">V-Ray / Maya</span>
+                        </div>
+                        <h3 class="text-xl font-bold font-display mb-1 text-white">Modern Bedroom Suite</h3>
+                        <p class="text-gray-500 text-sm line-clamp-2">High detail modeling focusing on soft lighting and fabric textures.</p>
+                    </div>
+                </div>
+
+                <!-- Item 7: 3D Prop Turntable Video -->
+             <!--   <div class="gallery-item glass-card rounded-2xl p-2 group cursor-pointer flex flex-col h-[400px]" data-category="video">
+                    <div class="media-container w-full flex-1 rounded-xl bg-[#111]">
+                        <video class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity" autoplay loop muted playsinline>
+                            <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
+                        </video>
+                        <div class="video-indicator"><i class="fa-solid fa-rotate"></i></div>
+                    </div>
+                    <div class="p-5">
+                        <div class="flex gap-2 mb-2">
+                            <span class="text-[10px] font-bold uppercase tracking-wider px-2 py-1 rounded bg-white/5 text-gray-300">Turntable Video</span>
+                            <span class="text-[10px] font-bold uppercase tracking-wider px-2 py-1 rounded bg-teal-500/10 text-teal-400">Prop Design</span>
+                        </div>
+                        <h3 class="text-xl font-bold font-display mb-1 text-white">Sci-Fi Energy Container</h3>
+                        <p class="text-gray-500 text-sm line-clamp-2">360-degree render showcasing emission maps and hard surface details.</p>
+                    </div>
+                </div>
+
+                <!-- Item 8: Base Map Layout (Image) -->
+            <!--    <div class="gallery-item glass-card rounded-2xl p-2 group cursor-pointer flex flex-col h-[400px]" data-category="3d">
+                    <div class="media-container w-full flex-1 rounded-xl bg-[#222] flex items-center justify-center p-4">
+                        <img src="https://images.unsplash.com/photo-1503387762-592deb58ef4e?q=80&w=800&auto=format&fit=crop" alt="Base Map Blueprint" class="w-full h-full object-cover rounded shadow-lg border border-white/10 filter contrast-125">
+                    </div>
+                    <div class="p-5">
+                        <div class="flex gap-2 mb-2">
+                            <span class="text-[10px] font-bold uppercase tracking-wider px-2 py-1 rounded bg-white/5 text-gray-300">Layout Design</span>
+                            <span class="text-[10px] font-bold uppercase tracking-wider px-2 py-1 rounded bg-white/10 text-white">Blueprint</span>
+                        </div>
+                        <h3 class="text-xl font-bold font-display mb-1 text-white">4-Zone Corporate Layout</h3>
+                        <p class="text-gray-500 text-sm line-clamp-2">Developed precise color-coded directional layouts to improve spatial navigation.</p>
+                    </div>
+                </div>
+
+                <!-- Item 9: Another 3D Prop (Image) -->
+              <!--  <div class="gallery-item glass-card rounded-2xl p-2 group cursor-pointer flex flex-col h-[400px]" data-category="3d">
+                    <div class="media-container w-full flex-1 rounded-xl bg-[#1a1a1a]">
+                        <img src="https://images.unsplash.com/photo-1620641788421-7a1c342ea42e?q=80&w=800&auto=format&fit=crop" alt="Abstract 3D Object" class="w-full h-full object-cover opacity-80">
+                    </div>
+                    <div class="p-5">
+                        <div class="flex gap-2 mb-2">
+                            <span class="text-[10px] font-bold uppercase tracking-wider px-2 py-1 rounded bg-white/5 text-gray-300">3D Prop</span>
+                            <span class="text-[10px] font-bold uppercase tracking-wider px-2 py-1 rounded bg-brand-accent/10 text-brand-accent">ZBrush</span>
+                        </div>
+                        <h3 class="text-xl font-bold font-display mb-1 text-white">Organic Crystal Formation</h3>
+                        <p class="text-gray-500 text-sm line-clamp-2">High-poly sculpt used as a central environment asset in 3D level design.</p>
+                    </div>
+                </div>
+
+                 <!-- Item 10: Hollow Express (Image) -->
+             <!-- <div class="gallery-item glass-card rounded-2xl p-2 group cursor-pointer flex flex-col h-[400px]" data-category="game">
+                    <div class="media-container w-full flex-1 rounded-xl bg-gray-900">
+                        <img src="https://images.unsplash.com/photo-1518709268805-4e9042af9f23?q=80&w=800&auto=format&fit=crop" alt="Dark Train Game" class="w-full h-full object-cover opacity-70 mix-blend-luminosity hover:mix-blend-normal transition-all duration-500">
+                    </div>
+                    <div class="p-5">
+                        <div class="flex gap-2 mb-2">
+                            <span class="text-[10px] font-bold uppercase tracking-wider px-2 py-1 rounded bg-white/5 text-gray-300">Game Jam</span>
+                            <span class="text-[10px] font-bold uppercase tracking-wider px-2 py-1 rounded bg-pink-500/10 text-pink-400">Zimension</span>
+                        </div>
+                        <h3 class="text-xl font-bold font-display mb-1 text-white">Hollow Express</h3>
+                        <p class="text-gray-500 text-sm line-clamp-2">Atmospheric side-scroller developed during Zimension Game Jam.</p>
+                    </div>
+                </div>
+
+                <!-- Item 11: Web UI Design (Image) -->
+               <!-- <div class="gallery-item glass-card rounded-2xl p-2 group cursor-pointer flex flex-col h-[400px]" data-category="uiux">
+                    <div class="media-container w-full flex-1 rounded-xl bg-slate-900 flex justify-center pt-6 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=800&auto=format&fit=crop" alt="Web Layout" class="w-[80%] h-auto object-cover rounded-t-lg shadow-2xl">
+                    </div>
+                    <div class="p-5">
+                        <div class="flex gap-2 mb-2">
+                            <span class="text-[10px] font-bold uppercase tracking-wider px-2 py-1 rounded bg-white/5 text-gray-300">Web UI</span>
+                            <span class="text-[10px] font-bold uppercase tracking-wider px-2 py-1 rounded bg-blue-400/10 text-blue-300">Minimalism</span>
+                        </div>
+                        <h3 class="text-xl font-bold font-display mb-1 text-white">Canvision Studio Landing</h3>
+                        <p class="text-gray-500 text-sm line-clamp-2">Designed the initial wireframe and high-fidelity prototype for the studio website.</p>
+                    </div>
+                </div>
+
+                 <!-- Item 12: Architecture Render Video -->
+               <!-- <div class="gallery-item glass-card rounded-2xl p-2 group cursor-pointer flex flex-col h-[400px]" data-category="video">
+                    <div class="media-container w-full flex-1 rounded-xl bg-black">
+                        <video class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity" autoplay loop muted playsinline poster="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=800&auto=format&fit=crop">
+                            <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
+                        </video>
+                        <div class="video-indicator"><i class="fa-solid fa-building"></i></div>
+                    </div>
+                    <div class="p-5">
+                        <div class="flex gap-2 mb-2">
+                            <span class="text-[10px] font-bold uppercase tracking-wider px-2 py-1 rounded bg-white/5 text-gray-300">Video Render</span>
+                            <span class="text-[10px] font-bold uppercase tracking-wider px-2 py-1 rounded bg-orange-500/10 text-orange-400">Exterior</span>
+                        </div>
+                        <h3 class="text-xl font-bold font-display mb-1 text-white">Commercial Complex Flythrough</h3>
+                        <p class="text-gray-500 text-sm line-clamp-2">Camera path animation detailing exterior architectural geometry.</p>
+                    </div>
+                </div>
+
+            </div>
+            
+            <div class="mt-20 text-center border-t border-white/10 pt-16">
+                <h2 class="text-3xl font-display font-bold mb-6">Want to see more details?</h2>
+                <a href="portfolio_website.html#contact" class="inline-block px-8 py-4 rounded-full bg-white text-black font-semibold hover:scale-105 transition-transform">
+                    Let's discuss a project
+                </a>
+            </div>
+
+        </div>
+    </main>
+
+    <footer class="bg-brand-dark py-8 text-center text-gray-500 text-sm border-t border-white/5">
+        <p>© 2026 Babulal Vaishnav. All rights reserved.</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const filterBtns = document.querySelectorAll('.filter-btn');
+            const galleryItems = document.querySelectorAll('.gallery-item');
+
+            filterBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    // Reset all buttons styling back to inactive
+                    filterBtns.forEach(b => {
+                        b.classList.remove('bg-white', 'text-black');
+                        b.classList.add('border', 'border-white/10', 'text-gray-400');
+                    });
+
+                    // Set active button styling
+                    btn.classList.add('bg-white', 'text-black');
+                    btn.classList.remove('border', 'border-white/10', 'text-gray-400');
+
+                    const filterValue = btn.getAttribute('data-filter');
+
+                    // Filter Logic: show/hide items
+                    galleryItems.forEach(item => {
+                        if (filterValue === 'all' || item.getAttribute('data-category') === filterValue) {
+                            item.style.display = 'flex';
+                        } else {
+                            item.style.display = 'none';
+                        }
+                    });
+                });
+            });
+        });
+    </script>
+</body>
+</html>
